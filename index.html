@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>QR Browser</title>
+  <link rel="manifest" href="manifest.json" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -490,6 +491,11 @@
   });
   // Push a state so popstate fires on back
   history.pushState({ qr: true }, '');
+
+  /* ── Service Worker ──────────────────────── */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
 
   /* ── Init ────────────────────────────────── */
   window.addEventListener('load', () => {
